@@ -1,6 +1,10 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
 	r := gin.Default()
@@ -9,5 +13,6 @@ func main() {
 			"message": "hello-world",
 		})
 	})
+	fmt.Println("Server has been started")
 	r.Run() // listen and serve on 0.0.0.0:8080
 }

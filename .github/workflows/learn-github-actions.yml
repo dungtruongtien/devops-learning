@@ -1,5 +1,7 @@
 name: learn-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
+run-name: ${{ github.action }} is learning GitHub Actions
+env:
+  TEST_SECRET_KEY: ${{ secrets.TEST_SECRET_KEY }}
 on: [push]
 jobs:
   check-bats-version:
@@ -10,4 +12,4 @@ jobs:
         with:
           node-version: '14'
       - run: npm install -g bats
-      - run: bats -v
+      - run: bats -v && echo $TEST_SECRET_KEY
