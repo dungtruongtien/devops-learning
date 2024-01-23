@@ -1,15 +1,15 @@
 name: learn-github-actions
 run-name: ${{ github.action }} is learning GitHub Actions
 env:
-  TEST_SECRET_KEY: ${{ secrets.TEST_SECRET_KEY }}
+  DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+  DOCKER_HUB_PASS: ${{ secrets.DOCKER_HUB_PASS }}
 on: [push]
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v && echo $TEST_SECRET_KEY
+      - run: docker build -t go-hello-world .
+      - run: docker tag go-hello-world dung041197/go-hello-world:0.0.2
+      - run: docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASS
+      - run: docker push dung041197/go-hello-world:0.0.2
